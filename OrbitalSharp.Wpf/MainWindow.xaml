@@ -1,0 +1,103 @@
+﻿<Window x:Class="OrbitalSharp.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OrbitalSharp.Wpf"
+        xmlns:plot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.Wpf"
+        xmlns:vm="clr-namespace:OrbitalSharp.Wpf.ViewModel"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:DebugMainViewModel}"
+        Title="MainWindow" Height="600" Width="379">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+        <ContentControl Content="{Binding PlotControl, Mode=OneTime}" Grid.Row="0"/>
+
+        <Border Grid.Row="1" Padding="10" Background="#EEE">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
+                    <Menu>
+                        <MenuItem Header="New Orbit">
+                            <MenuItem Header="With Altitude" Command="{Binding NewOrbitWithAltitude}"/>
+                            <MenuItem Header="With Period" Command="{Binding NewOrbitWithPeriod}"/>
+                            <MenuItem Header="With Apside Altitudes" Command="{Binding NewOrbitWithApsideAltitudes}"/>
+                            <MenuItem Header="With Apside Radii" Command="{Binding NewOrbitWithApsideRadii}"/>
+                            <MenuItem Header="From State Vectors" Command="{Binding NewOrbitFromStateVectors}"/>
+                        </MenuItem>
+                    </Menu>
+                    <Menu Margin="20,0,0,0">
+                        <MenuItem Header="Add Maneuver">
+                            <MenuItem Header="Change Apocenter By" IsEnabled="False"/>
+                            <MenuItem Header="Change Inclination By" IsEnabled="False"/>
+                            <MenuItem Header="Change Pericenter By" IsEnabled="False"/>
+                            <MenuItem Header="Circularize" IsEnabled="False"/>
+                            <MenuItem Header="Propagate Anomaly By" IsEnabled="False"/>
+                            <MenuItem Header="Propagate Anomaly To" Command="{Binding OperationPropagateAnomalyTo}"/>
+                            <MenuItem Header="Set Apocenter Altitude To" IsEnabled="False"/>
+                            <MenuItem Header="Set Apocenter Radius To" Command="{Binding OperationSetApocenterRadiusTo}"/>
+                            <MenuItem Header="Set Inclination To" IsEnabled="False"/>
+                            <MenuItem Header="Set Pericenter Altitude To" IsEnabled="False"/>
+                            <MenuItem Header="Set Pericenter Here" IsEnabled="False"/>
+                            <MenuItem Header="Set Pericenter Radius To" IsEnabled="False"/>
+                        </MenuItem>
+                    </Menu>
+                </StackPanel>
+                <ListBox d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+        
+        <!--<Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Semi-major axis" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding SemimajorAxis}"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Eccentricity" VerticalAlignment="Center"/>
+            <Slider Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="1" Value="{Binding Eccentricity}"/>
+            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Eccentricity, StringFormat=F1}"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Inclination" VerticalAlignment="Center"/>
+            <Slider Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="360" Value="{Binding Inclination}"/>
+            <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Inclination, StringFormat=F0}"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="RA of Ascending Node" VerticalAlignment="Center"/>
+            <Slider Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="360" Value="{Binding RAAN}"/>
+            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding RAAN, StringFormat=F0}"/>
+            
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Argument of Periapsis" VerticalAlignment="Center"/>
+            <Slider Grid.Row="4" Grid.Column="1" Minimum="0" Maximum="360" Value="{Binding ArgumentOfPeriapsis}"/>
+            <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding ArgumentOfPeriapsis, StringFormat=F0}"/>
+            
+            <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="10">
+                <TextBlock Text="{Binding FormattedSimTime}" FontWeight="Bold" Margin="0,0,0,10"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Time Scale:"/>
+                    <Slider Minimum="0" Maximum="4" Value="{Binding LogTimeScale}" Width="200" TickFrequency="0.5" TickPlacement="BottomRight" IsSnapToTickEnabled="True"/>
+                    <TextBlock Text="{Binding TimeScale, StringFormat=F1}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="×" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>-->
+    </Grid>
+</Window>
